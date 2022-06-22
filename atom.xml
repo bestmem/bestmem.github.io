@@ -6,7 +6,7 @@
   <link href="https://bestmem.github.io/atom.xml" rel="self"/>
   
   <link href="https://bestmem.github.io/"/>
-  <updated>2022-06-22T07:56:04.780Z</updated>
+  <updated>2022-06-22T10:29:44.908Z</updated>
   <id>https://bestmem.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://bestmem.github.io/2022/06/21/hexo-github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%B3%BB%E7%BB%9F/"/>
     <id>https://bestmem.github.io/2022/06/21/hexo-github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%B3%BB%E7%BB%9F/</id>
     <published>2022-06-21T10:30:39.000Z</published>
-    <updated>2022-06-22T07:56:04.780Z</updated>
+    <updated>2022-06-22T10:29:44.908Z</updated>
     
     
       
@@ -34,6 +34,14 @@
     
     
     
+    <category term="杂谈" scheme="https://bestmem.github.io/categories/%E6%9D%82%E8%B0%88/"/>
+    
+    
+    <category term="github" scheme="https://bestmem.github.io/tags/github/"/>
+    
+    <category term="hexo" scheme="https://bestmem.github.io/tags/hexo/"/>
+    
+    <category term="matery" scheme="https://bestmem.github.io/tags/matery/"/>
     
   </entry>
   
@@ -41,8 +49,8 @@
     <title>Hello World</title>
     <link href="https://bestmem.github.io/2022/06/21/hello-world/"/>
     <id>https://bestmem.github.io/2022/06/21/hello-world/</id>
-    <published>2022-06-21T09:47:19.157Z</published>
-    <updated>2022-04-02T02:43:30.176Z</updated>
+    <published>2022-06-21T10:01:03.000Z</published>
+    <updated>2022-06-22T09:36:33.459Z</updated>
     
     
       
@@ -55,6 +63,12 @@
     
     
     
+    <category term="杂谈" scheme="https://bestmem.github.io/categories/%E6%9D%82%E8%B0%88/"/>
+    
+    
+    <category term="github" scheme="https://bestmem.github.io/tags/github/"/>
+    
+    <category term="hexo" scheme="https://bestmem.github.io/tags/hexo/"/>
     
   </entry>
   
