@@ -490,21 +490,21 @@ $ npm install hexo-c">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-06-29
+                    2022-06-30
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    7.7k
+                    8.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    36 分
+                    38 分
                 </div>
                 
 
@@ -591,7 +591,7 @@ INFO  Start processing
 INFO  Hexo is running at http://localhost:4000 <span class="token builtin class-name">.</span> Press Ctrl+C to stop.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>访问<a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000</a></p>
-<p><img src="https://bestmem.oss-cn-beijing.aliyuncs.com/gitee/document/%E5%8D%9A%E5%AE%A2%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B5%E9%9D%A2.png"></p>
+<p><img src="/2022/06/21/%E6%9D%82%E8%B0%88/hexo-github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%B3%BB%E7%BB%9F/%E5%8D%9A%E5%AE%A2%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B5%E9%9D%A2.png"></p>
 <p>运行没有问题后，可通过如下命令生成静态文件</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo generate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
@@ -602,6 +602,34 @@ INFO  Hexo is running at http://localhost:4000 <span class="token builtin class-
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo deploy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>随后便可打开你的github站点地址进行访问：<a href="https://bestmem.github.io/">https://bestmem.github.io/</a></p>
+<h1 id="其它配置"><a href="#其它配置" class="headerlink" title="其它配置"></a>其它配置</h1><h2 id="图片加载"><a href="#图片加载" class="headerlink" title="图片加载"></a>图片加载</h2><h3 id="外部存储"><a href="#外部存储" class="headerlink" title="外部存储"></a>外部存储</h3><p>可以使用<code>Typora</code>+<code>PicGo</code>+<code>aliyun OSS</code>将图片保存在对象存储中，方便文章加载图片。</p>
+<h3 id="本地存储"><a href="#本地存储" class="headerlink" title="本地存储"></a>本地存储</h3><p>修改主配置文件<code>_config.yml</code>，开启自动创建与文章同级同名的图片存储目录</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">post_asset_folder: true<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>安装插件：</p>
+<pre class="line-numbers language-none"><code class="language-none">npm i https://github.com/7ym0n/hexo-asset-image --save<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>注：使用<code>https://github.com/7ym0n/hexo-asset-image</code>插件，而不是<code>hexo-asset-image</code>插件，否则可能会造成生成静态文件后网页加载图片路径错误。</p>
+</blockquote>
+<p>创建文章：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo new 本地存储使用文章
+INFO  Validating config
+INFO  Created: C:<span class="token punctuation">\</span>bestmem<span class="token punctuation">\</span>document<span class="token punctuation">\</span>bestmem.github.io<span class="token punctuation">\</span>source<span class="token punctuation">\</span>_posts<span class="token punctuation">\</span>本地存储使用文章.md<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>打开文件夹<code>C:\bestmem\document\bestmem.github.io\source\_posts\</code>，会发现多了名为<code>本地存储使用文章</code>的文件夹，用于存储图片文件。</p>
+<p>在文章<code>本地存储使用文章.md</code>中通过相对路径加载图片</p>
+<pre class="line-numbers language-none"><code class="language-none">![](本地存储使用文章/测试.png)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>生成静态文件并推送至github：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo clean <span class="token operator">&amp;&amp;</span> hexo g
+$ hexo d<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="文章分类存储"><a href="#文章分类存储" class="headerlink" title="文章分类存储"></a>文章分类存储</h2><p>默认我们使用<code>hexo new [layout] (title)</code>创建文章时，是在<code>source/_posts</code>下生成的文章Markdown文件和图片存储目录，这会导致当我们有大量文章时，该目录显得杂乱。</p>
+<p>因此好的规范是：根据你博文的分类<code>categories</code>来创建相应的父目录存储文章。</p>
+<p>我们的<code>hexo-github搭建博客系统.md</code>属于<code>杂谈</code>分类，因此我们的创建方式如下</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo new post -p 杂谈/hexo-github搭建博客系统<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <h1 id="命令使用"><a href="#命令使用" class="headerlink" title="命令使用"></a>命令使用</h1><p><strong>新建一个网站</strong></p>
 <pre class="line-numbers language-none"><code class="language-none">$ hexo init [folder]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
@@ -707,7 +735,7 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
 relative_link: false
 future: true
 highlight:
@@ -1745,10 +1773,10 @@ permalink_pinyin:
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
-                <a href="/2022/06/21/hexo-github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%B3%BB%E7%BB%9F/">
+                <a href="/2022/06/21/%E6%9D%82%E8%B0%88/hexo-github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%B3%BB%E7%BB%9F/">
                     <div class="card-image">
                         
                         
@@ -1779,6 +1807,7 @@ permalink_pinyin:
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1984,7 +2013,7 @@ permalink_pinyin:
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">15.5k</span>
+                        class="white-color">8.1k</span>
             
             
             
