@@ -4,8 +4,12 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="friends, 小二来了">
-    <meta name="description" content="小二来了">
+    <meta name="keywords" content="mysql5.7升级, 小二来了">
+    <meta name="description" content="mysql5.7前提：
+数据库全量备份：
+mysqldump -uroot -p --single-transaction --all-databases=true &amp;gt; all-sqlbak.sql
+
+In-Place Upgrade">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -28,7 +32,7 @@
     </style>
 
 
-    <title>friends | 小二来了</title>
+    <title>mysql5.7升级 | 小二来了</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -321,12 +325,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">friends</h1>
+                    <h1 class="description center-align post-title">mysql5.7升级</h1>
                 </div>
             </div>
         </div>
@@ -440,12 +444,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/mysql/">
+                                <span class="chip bg-color">mysql</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/mysql/" class="post-category">
+                                mysql
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -454,28 +471,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-06-22
+                    2022-08-15
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-06-22
+                    2022-08-15
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    821
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    4 分
                 </div>
                 
 
@@ -498,7 +515,170 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="mysql5-7"><a href="#mysql5-7" class="headerlink" title="mysql5.7"></a>mysql5.7</h1><p><strong>前提：</strong></p>
+<p>数据库全量备份：</p>
+<pre class="line-numbers language-none"><code class="language-none">mysqldump -uroot -p --single-transaction --all-databases=true &gt; all-sqlbak.sql<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="In-Place-Upgrade（就地升级）"><a href="#In-Place-Upgrade（就地升级）" class="headerlink" title="In-Place Upgrade（就地升级）"></a>In-Place Upgrade（就地升级）</h2><p>就地升级包括关闭旧的MySQL服务器，用新的MySQL二进制文件或程序包替换旧的MySQL二进制文件或程序包，在现有数据目录上重新启动MySQL以及升级现有安装中需要升级的任何其余部分。</p>
+<p><strong>执行In-Place Upgrade：</strong></p>
+<ol>
+<li><p>设置mysql为缓慢关闭</p>
+<pre class="line-numbers language-none"><code class="language-none">mysql -u root -p --execute="SET GLOBAL innodb_fast_shutdown=0"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>通过缓慢的关闭，InnoDB将在关闭之前执行完全清除和更改缓冲区合并，以确保在两个版本之间的文件格式存在差异时，可以充分准备数据文件。</p>
+</blockquote>
+</li>
+<li><p>关闭mysql</p>
+<pre class="line-numbers language-none"><code class="language-none">mysqladmin -u root -p shutdown<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>升级mysql二进制安装包</p>
+<pre class="line-numbers language-none"><code class="language-none">tar zxf mysql-5.7.31-linux-glibc2.12-x86_64.tar.gz -C /usr/local/src/
+rm -fr /usr/local/software/mysql
+ln -s /usr/local/src/mysql-5.7.31-linux-glibc2.12-x86_64/ /usr/local/software/mysql
+chown mysql:mysql -R mysql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>MYSQL_BIN=/usr/local/software/mysql/bin<br>export PATH=$PATH:${MYSQL_BIN}</p>
+<p>确保环境变量中引用<code>/usr/local/software/mysql/bin</code>下二进制文件。</p>
+<p>mysql -V 查看版本</p>
+</blockquote>
+</li>
+<li><p>使用存在的数据目录启动mysql5.7</p>
+<pre class="line-numbers language-none"><code class="language-none">创建存放mysqld_safe运行时存放mysqld.pid文件的目录
+mkdir /var/run/mysqld
+chown mysql:mysql /var/run/mysqld<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none"># --user为启动mysqld服务的用户
+mysqld_safe --user=mysql --datadir=/data/mysql &amp;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+<li><p>启动mysql_upgrade</p>
+<pre class="line-numbers language-none"><code class="language-none">mysql_upgrade -u root -p<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>mysql_upgrade检查所有数据库中的所有表是否与当前版本的MySQL不兼容。 mysql_upgrade还会升级mysql系统数据库，以便您可以利用新的特权或功能。</p>
+<p>mysql_upgrade不会升级时区表或帮助表的内容。</p>
+</blockquote>
+<p><strong>输出：</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">[root@harbor software]# mysql_upgrade -u root -p
+Enter password: 
+Checking if update is needed.
+Checking server version.
+Running queries to upgrade MySQL server.
+Checking system database.
+mysql.columns_priv                                 OK
+mysql.db                                           OK
+mysql.engine_cost                                  OK
+mysql.event                                        OK
+mysql.func                                         OK
+mysql.general_log                                  OK
+mysql.gtid_executed                                OK
+mysql.help_category                                OK
+mysql.help_keyword                                 OK
+mysql.help_relation                                OK
+mysql.help_topic                                   OK
+mysql.innodb_index_stats                           OK
+mysql.innodb_table_stats                           OK
+mysql.ndb_binlog_index                             OK
+mysql.plugin                                       OK
+mysql.proc                                         OK
+mysql.procs_priv                                   OK
+mysql.proxies_priv                                 OK
+mysql.server_cost                                  OK
+mysql.servers                                      OK
+mysql.slave_master_info                            OK
+mysql.slave_relay_log_info                         OK
+mysql.slave_worker_info                            OK
+mysql.slow_log                                     OK
+mysql.tables_priv                                  OK
+mysql.time_zone                                    OK
+mysql.time_zone_leap_second                        OK
+mysql.time_zone_name                               OK
+mysql.time_zone_transition                         OK
+mysql.time_zone_transition_type                    OK
+mysql.user                                         OK
+The sys schema is already up to date (version 1.5.2).
+Found 0 sys functions, but expected 22. Re-installing the sys schema.
+Upgrading the sys schema.
+Checking databases.
+gdsgbpx.enroll_base_info                           OK
+gdsgbpx.qrtz_blob_triggers                         OK
+gdsgbpx.qrtz_calendars                             OK
+gdsgbpx.qrtz_cron_triggers                         OK
+gdsgbpx.qrtz_fired_triggers                        OK
+gdsgbpx.qrtz_job_details                           OK
+gdsgbpx.qrtz_locks                                 OK
+gdsgbpx.qrtz_paused_trigger_grps                   OK
+gdsgbpx.qrtz_scheduler_state                       OK
+gdsgbpx.qrtz_simple_triggers                       OK
+gdsgbpx.qrtz_simprop_triggers                      OK
+gdsgbpx.qrtz_triggers                              OK
+gdsgbpx.query_config                               OK
+gdsgbpx.tareaorg                                   OK
+gdsgbpx.tbl_config                                 OK
+gdsgbpx.tbl_data                                   OK
+gdsgbpx.tbl_demo_generator                         OK
+gdsgbpx.tbl_dict                                   OK
+gdsgbpx.tbl_file                                   OK
+gdsgbpx.tbl_function                               OK
+gdsgbpx.tbl_function_filter                        OK
+gdsgbpx.tbl_markdown                               OK
+gdsgbpx.tbl_message                                OK
+gdsgbpx.tbl_message_attachment                     OK
+gdsgbpx.tbl_message_group                          OK
+gdsgbpx.tbl_message_group_user                     OK
+gdsgbpx.tbl_message_receiver                       OK
+gdsgbpx.tbl_org                                    OK
+gdsgbpx.tbl_role                                   OK
+gdsgbpx.tbl_role_function                          OK
+gdsgbpx.tbl_simple_mail                            OK
+gdsgbpx.tbl_user                                   OK
+gdsgbpx.tbl_user_avatar                            OK
+gdsgbpx.tbl_user_log                               OK
+gdsgbpx.tbl_user_oauth                             OK
+gdsgbpx.tbl_user_role                              OK
+gdsgbpx.ttrainingorg                               OK
+gdsgbpx.ttrainnew                                  OK
+gdsgbpx.ttrainnewbatch                             OK
+gdsgbpx.ttrainnewbatch_bak                         OK
+gdsgbpx.ttrainnewbatch_bak2                        OK
+gdsgbpx.ttrainnewbatch_log                         OK
+gdsgbpx.ttrainnewbatchcondition                    OK
+gdsgbpx.ttrainnewprestu                            OK
+gdsgbpx.ttrainnewprestu_bak                        OK
+gdsgbpx.ttrainnewprestu_log                        OK
+gdsgbpx.ttrainnewstu                               OK
+gdsgbpx.ttrainnewstu_log                           OK
+gdsgbpx.ttrainnewstu_logs                          OK
+gdsgbpx.ttrainnewstumain                           OK
+sys.sys_config                                     OK
+sz_test.log_common_log                             OK
+sz_test.log_trace_log                              OK
+sz_test.sys_dict                                   OK
+sz_test.sys_dict_type                              OK
+sz_test.sys_menu                                   OK
+sz_test.sys_org                                    OK
+sz_test.sys_ref_role_menu                          OK
+sz_test.sys_ref_usr_role                           OK
+sz_test.sys_role                                   OK
+sz_test.sys_user                                   OK
+sz_test.tb_train_class                             OK
+sz_test.tb_train_leave                             OK
+sz_test.tb_train_leave_file                        OK
+sz_test.tb_train_ref_file                          OK
+sz_test.tb_train_ref_stu                           OK
+Upgrade process completed successfully.
+Checking if update is needed.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>关闭并重启mysql服务，确定所有的修改已经生效</p>
+<pre class="line-numbers language-none"><code class="language-none">mysqladmin -u root -p shutdown
+mysqld_safe --user=mysql --datadir=/data/mysql &amp;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p><code>systemctl restart mysqld</code>重启即可</p>
+</blockquote>
+</li>
+</ol>
+<p>升级完毕。</p>
+<h1 id="参考地址："><a href="#参考地址：" class="headerlink" title="参考地址："></a>参考地址：</h1><p><a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/upgrade-binary-package.html">https://dev.mysql.com/doc/refman/5.7/en/upgrade-binary-package.html</a></p>
+
                 
             </div>
             <hr/>
@@ -524,7 +704,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://bestmem.github.io/friends/index.html">https://bestmem.github.io/friends/index.html</a>
+                    <a href="https://bestmem.github.io/2022/08/15/mysql/mysql%E5%8D%87%E7%BA%A7/">https://bestmem.github.io/2022/08/15/mysql/mysql%E5%8D%87%E7%BA%A7/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -561,7 +741,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/mysql/">
+                                    <span class="chip bg-color">mysql</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -604,18 +788,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/friends/index.html">
+                <a href="/2022/08/16/harbor/harbor%E5%8D%87%E7%BA%A7nginx%E7%BB%84%E4%BB%B6/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="friends">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="harbor升级nginx组件">
                         
-                        <span class="card-title">friends</span>
+                        <span class="card-title">harbor升级nginx组件</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -625,18 +808,29 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-22
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-16
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            bestmem
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/zabbix/" class="post-category">
+                                    zabbix
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/harbor/">
+                        <span class="chip bg-color">harbor</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -644,16 +838,16 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/friends/index.html">
+                <a href="/2022/08/02/zabbix/zabbix6.0%E9%83%A8%E7%BD%B2/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="friends">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="zabbix6.0部署">
                         
-                        <span class="card-title">friends</span>
+                        <span class="card-title">zabbix6.0部署</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -664,17 +858,28 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-02
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            bestmem
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/zabbix/" class="post-category">
+                                    zabbix
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/zabbix/">
+                        <span class="chip bg-color">zabbix</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>

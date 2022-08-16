@@ -6,7 +6,7 @@
   <link href="https://bestmem.github.io/atom.xml" rel="self"/>
   
   <link href="https://bestmem.github.io/"/>
-  <updated>2022-06-30T03:50:06.256Z</updated>
+  <updated>2022-08-16T03:54:41.400Z</updated>
   <id>https://bestmem.github.io/</id>
   
   <author>
@@ -15,6 +15,110 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>harbor升级nginx组件</title>
+    <link href="https://bestmem.github.io/2022/08/16/harbor/harbor%E5%8D%87%E7%BA%A7nginx%E7%BB%84%E4%BB%B6/"/>
+    <id>https://bestmem.github.io/2022/08/16/harbor/harbor%E5%8D%87%E7%BA%A7nginx%E7%BB%84%E4%BB%B6/</id>
+    <published>2022-08-16T02:09:27.000Z</published>
+    <updated>2022-08-16T03:54:41.400Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="zabbix" scheme="https://bestmem.github.io/categories/zabbix/"/>
+    
+    
+    <category term="harbor" scheme="https://bestmem.github.io/tags/harbor/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mysql5.7升级</title>
+    <link href="https://bestmem.github.io/2022/08/15/mysql/mysql%E5%8D%87%E7%BA%A7/"/>
+    <id>https://bestmem.github.io/2022/08/15/mysql/mysql%E5%8D%87%E7%BA%A7/</id>
+    <published>2022-08-15T03:27:09.000Z</published>
+    <updated>2022-08-15T07:24:42.864Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;mysql5-7&quot;&gt;&lt;a href=&quot;#mysql5-7&quot; class=&quot;headerlink&quot; title=&quot;mysql5.7&quot;&gt;&lt;/a&gt;mysql5.7&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;前提：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;数据库全量备份：&lt;/p&gt;
+&lt;pre</summary>
+        
+      
+    
+    
+    
+    <category term="mysql" scheme="https://bestmem.github.io/categories/mysql/"/>
+    
+    
+    <category term="mysql" scheme="https://bestmem.github.io/tags/mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>zabbix6.0部署</title>
+    <link href="https://bestmem.github.io/2022/08/02/zabbix/zabbix6.0%E9%83%A8%E7%BD%B2/"/>
+    <id>https://bestmem.github.io/2022/08/02/zabbix/zabbix6.0%E9%83%A8%E7%BD%B2/</id>
+    <published>2022-08-02T00:53:57.000Z</published>
+    <updated>2022-08-16T01:32:27.626Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;基础信息&quot;&gt;&lt;a href=&quot;#基础信息&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="zabbix" scheme="https://bestmem.github.io/categories/zabbix/"/>
+    
+    
+    <category term="zabbix" scheme="https://bestmem.github.io/tags/zabbix/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mysql5.7部署</title>
+    <link href="https://bestmem.github.io/2022/08/01/mysql/mysql5.7%E9%83%A8%E7%BD%B2/"/>
+    <id>https://bestmem.github.io/2022/08/01/mysql/mysql5.7%E9%83%A8%E7%BD%B2/</id>
+    <published>2022-08-01T08:45:20.000Z</published>
+    <updated>2022-08-04T08:37:47.785Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;docker方式&quot;&gt;&lt;a href=&quot;#docker方式&quot; class=&quot;headerlink&quot; title=&quot;docker方式&quot;&gt;&lt;/a&gt;docker方式&lt;/h1&gt;&lt;h2 id=&quot;下载mysql镜像&quot;&gt;&lt;a href=&quot;#下载mysql镜像&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="mysql" scheme="https://bestmem.github.io/categories/mysql/"/>
+    
+    
+    <category term="mysql" scheme="https://bestmem.github.io/tags/mysql/"/>
+    
+    <category term="docker" scheme="https://bestmem.github.io/tags/docker/"/>
+    
+  </entry>
   
   <entry>
     <title>hexo+github搭建博客系统</title>

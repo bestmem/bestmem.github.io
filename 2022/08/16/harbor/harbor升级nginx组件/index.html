@@ -4,8 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="friends, 小二来了">
-    <meta name="description" content="小二来了">
+    <meta name="keywords" content="harbor升级nginx组件, 小二来了">
+    <meta name="description" content="问题描述最近收到Nginx版本存在0day漏洞的信息，影响范围为：Nginx&amp;lt;=1.21.6。
+通过扫描发现harbor服务运行的goharbor/nginx-photon:v2.2.1容器内部的nginx版本为1.19.3，本以为对">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -28,7 +29,7 @@
     </style>
 
 
-    <title>friends | 小二来了</title>
+    <title>harbor升级nginx组件 | 小二来了</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -321,12 +322,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">friends</h1>
+                    <h1 class="description center-align post-title">harbor升级nginx组件</h1>
                 </div>
             </div>
         </div>
@@ -440,12 +441,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/harbor/">
+                                <span class="chip bg-color">harbor</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/zabbix/" class="post-category">
+                                zabbix
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -454,28 +468,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-06-22
+                    2022-08-16
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-06-22
+                    2022-08-16
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    1.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    6 分
                 </div>
                 
 
@@ -498,7 +512,169 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>最近收到Nginx版本存在0day漏洞的信息，影响范围为：Nginx&lt;=1.21.6。</p>
+<p>通过扫描发现harbor服务运行的<code>goharbor/nginx-photon:v2.2.1</code>容器内部的nginx版本为1.19.3，本以为对harbor进行升级即可，可通过<a target="_blank" rel="noopener" href="https://github.com/goharbor/harbor/issues/17378">issues</a>发现稳定发行版v2.5.3仍然使用的nginx1.19.3。</p>
+<p><img src="/2022/08/16/harbor/harbor%E5%8D%87%E7%BA%A7nginx%E7%BB%84%E4%BB%B6/image-20220816102817539.png" alt="image-20220816102817539"></p>
+<p>同样对发布候选版v2.6.0-rc2进行测试，发现仍然是nginx/1.19.3。</p>
+<p><img src="/2022/08/16/harbor/harbor%E5%8D%87%E7%BA%A7nginx%E7%BB%84%E4%BB%B6/image-20220816103634242.png" alt="image-20220816103634242"></p>
+<h1 id="分析过程"><a href="#分析过程" class="headerlink" title="分析过程"></a>分析过程</h1><p>通过issue可以发现默认的nginx版本依赖于<code>Photon 4.0</code> tdnf仓库，其定义于<a target="_blank" rel="noopener" href="https://github.com/goharbor/harbor/blob/v2.5.3/make/photon/nginx/Dockerfile.base">dockerfile</a>中</p>
+<p>这里有三个关键的文件：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/goharbor/harbor/blob/v2.5.3/make/photon/Makefile">https://github.com/goharbor/harbor/blob/v2.5.3/make/photon/Makefile</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/goharbor/harbor/blob/v2.5.3/make/photon/nginx/Dockerfile">https://github.com/goharbor/harbor/blob/v2.5.3/make/photon/nginx/Dockerfile</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/goharbor/harbor/blob/v2.5.3/make/photon/nginx/Dockerfile.base">https://github.com/goharbor/harbor/blob/v2.5.3/make/photon/nginx/Dockerfile.base</a></li>
+</ul>
+<p>其中<a target="_blank" rel="noopener" href="https://github.com/goharbor/harbor/blob/v2.5.3/make/photon/Makefile">Makefile</a>文件定义了如何去构建harbor所依赖的所有组件镜像，<a target="_blank" rel="noopener" href="https://github.com/goharbor/harbor/blob/v2.5.3/make/photon/nginx/Dockerfile">Dockerfile</a>为<code>goharbor/nginx-photon:v2.5.3</code>镜像的Dockerfile，<a target="_blank" rel="noopener" href="https://github.com/goharbor/harbor/blob/v2.5.3/make/photon/nginx/Dockerfile.base">Dockerfile.base</a>为<code>goharbor/harbor-nginx-base:v2.5.3</code>镜像的Dockerfile。</p>
+<p>查看Makefile：</p>
+<pre class="line-numbers language-none"><code class="language-none"># Makefile for a harbor project
+#
+# Targets:
+#
+# build: 	build harbor photon images
+# clean:	clean core and jobservice harbor images
+
+# common
+SHELL := /bin/bash
+BUILDPATH=$(CURDIR)
+MAKEPATH=$(BUILDPATH)/make
+SRCPATH=./src
+TOOLSPATH=$(CURDIR)/tools
+SEDCMD=$(shell which sed)
+WGET=$(shell which wget)
+CURL=$(shell which curl)
+TIMESTAMP=$(shell date +"%Y%m%d")
+
+# docker parameters
+DOCKERCMD=$(shell which docker)
+DOCKERBUILD=$(DOCKERCMD) build --no-cache
+DOCKERBUILD_WITH_PULL_PARA=$(DOCKERBUILD) --pull=$(PULL_BASE_FROM_DOCKERHUB)
+DOCKERRMIMAGE=$(DOCKERCMD) rmi
+DOCKERIMAGES=$(DOCKERCMD) images
+IMAGENAMESPACE=goharbor
+BASEIMAGENAMESPACE=goharbor
+省略......
+NGINX=nginx
+DOCKERFILEPATH_NGINX=$(DOCKERFILEPATH)/$(NGINX)
+DOCKERFILENAME_NGINX=Dockerfile
+DOCKERIMAGENAME_NGINX=$(IMAGENAMESPACE)/$(NGINX)-photon
+省略......
+_build_nginx:
+	@$(call _build_base,$(NGINX),$(DOCKERFILEPATH_NGINX))
+	@echo "building nginx container for photon..."
+	@$(DOCKERBUILD_WITH_PULL_PARA) --build-arg harbor_base_image_version=$(BASEIMAGETAG) --build-arg harbor_base_namespace=$(BASEIMAGENAMESPACE) -f $(DOCKERFILEPATH_NGINX)/$(DOCKERFILENAME_NGINX) -t $(DOCKERIMAGENAME_NGINX):$(VERSIONTAG) .
+	@echo "Done."<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>查看Dockerfile：</p>
+<pre class="line-numbers language-none"><code class="language-none">ARG harbor_base_image_version
+ARG harbor_base_namespace
+FROM ${harbor_base_namespace}/harbor-nginx-base:${harbor_base_image_version}
+
+VOLUME /var/cache/nginx /var/log/nginx /run
+
+STOPSIGNAL SIGQUIT
+
+HEALTHCHECK CMD curl --fail -s http://localhost:8080 || exit 1
+
+USER nginx
+
+CMD ["nginx", "-g", "daemon off;"]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>查看Dockerfile.base：</p>
+<pre class="line-numbers language-none"><code class="language-none">FROM photon:4.0
+
+RUN tdnf install -y nginx shadow &gt;&gt; /dev/null \
+    &amp;&amp; tdnf clean all \
+    &amp;&amp; groupadd -r -g 10000 nginx &amp;&amp; useradd --no-log-init -r -g 10000 -u 10000 nginx \
+    &amp;&amp; ln -sf /dev/stdout /var/log/nginx/access.log \
+    &amp;&amp; ln -sf /dev/stderr /var/log/nginx/error.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可发现<code>goharbor/nginx-photon:v2.5.3</code>依赖于<code>goharbor/harbor-nginx-base:v2.5.3</code>，而nginx是在<code>goharbor/harbor-nginx-base:v2.5.3</code>中从<code>photon:4.0</code>的tdnf源中获取的。</p>
+<p>那么我们本地测试<code>photon:4.0</code>的tdnf源中的nginx版本是多少？</p>
+<pre class="line-numbers language-none"><code class="language-none">[root@harbor ~]# docker pull photon:4.0
+[root@harbor ~]# docker run -it --rm  photon:4.0 /bin/bash
+root [ / ]# tdnf install -y nginx
+root [ / ]# nginx -V
+nginx version: nginx/1.22.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>为最新稳定版nginx/1.22.0，说明<code>photon:4.0</code>镜像中的tdnf源现在拥有nginx/1.22.0最新稳定版，而harbor发行<a target="_blank" rel="noopener" href="https://github.com/goharbor/harbor/releases/download/v2.5.3/harbor-offline-installer-v2.5.3.tgz">harbor-offline-installer-v2.5.3.tgz</a>的那个时间所依赖的<code>goharbor/harbor-nginx-base:v2.5.3</code>的基础镜像<code>photon:4.0</code> tdnf源中可能当时的nginx版本只有nginx/1.19.3而导致的，或其他原因。</p>
+<p>那么我们手动构建一个即可：</p>
+<p>分析<a target="_blank" rel="noopener" href="https://github.com/goharbor/harbor/blob/v2.5.3/make/photon/Makefile">Makefile</a>文件，获取镜像的构建命令：</p>
+<pre class="line-numbers language-none"><code class="language-none"># goharbor/harbor-nginx-base:v2.5.3
+docker build --no-cache -f Dockerfile.base -t goharbor/harbor-nginx-base:v2.5.3 .
+
+# goharbor/nginx-photon:v2.5.3
+docker build --no-cache --build-arg harbor_base_image_version=v2.5.3 --build-arg harbor_base_namespace=goharbor -f Dockerfile -t goharbor/nginx-photon:v2.5.3 .<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h1 id="升级nginx-photon组件"><a href="#升级nginx-photon组件" class="headerlink" title="升级nginx-photon组件"></a>升级nginx-photon组件</h1><h2 id="准备依赖"><a href="#准备依赖" class="headerlink" title="准备依赖"></a>准备依赖</h2><pre class="line-numbers language-none"><code class="language-none"># 创建构建目录
+[root@harbor ~]# mkdir /root/nginx &amp;&amp; cd /root/nginx
+
+# 获取goharbor/nginx-photon:v2.5.3 Dockerfile
+[root@harbor nginx]# cat Dockerfile
+ARG harbor_base_image_version
+ARG harbor_base_namespace
+FROM ${harbor_base_namespace}/harbor-nginx-base:${harbor_base_image_version}
+
+VOLUME /var/cache/nginx /var/log/nginx /run
+
+STOPSIGNAL SIGQUIT
+
+HEALTHCHECK CMD curl --fail -s http://localhost:8080 || exit 1
+
+USER nginx
+
+CMD ["nginx", "-g", "daemon off;"]
+
+# 获取goharbor/harbor-nginx-base:v2.5.3 Dockerfile
+[root@harbor nginx]# cat Dockerfile.base
+FROM photon:4.0
+
+RUN tdnf install -y nginx shadow &gt;&gt; /dev/null \
+    &amp;&amp; tdnf clean all \
+    &amp;&amp; groupadd -r -g 10000 nginx &amp;&amp; useradd --no-log-init -r -g 10000 -u 10000 nginx \
+    &amp;&amp; ln -sf /dev/stdout /var/log/nginx/access.log \
+    &amp;&amp; ln -sf /dev/stderr /var/log/nginx/error.log<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h2><pre class="line-numbers language-none"><code class="language-none">[root@harbor nginx]# docker build --no-cache -f Dockerfile.base -t goharbor/harbor-nginx-base:v2.5.3 .
+[root@harbor nginx]# docker build --no-cache --build-arg harbor_base_image_version=v2.5.3 --build-arg harbor_base_namespace=goharbor -f Dockerfile -t goharbor/nginx-photon:v1.0.0 .<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>构建完成后将镜像导出<code>docker save goharbor/nginx-photon:v1.0.0 -o nginx-photon.tgz</code>并上传至生产环境进行导入<code>docker load -i nginx-photon.tgz</code></p>
+<h2 id="升级nginx组件"><a href="#升级nginx组件" class="headerlink" title="升级nginx组件"></a>升级nginx组件</h2><p>停掉nginx组件</p>
+<pre class="line-numbers language-none"><code class="language-none">$ docker-compose stop proxy
+$ docker-compose rm proxy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>修改docker-compose.yml文件：</p>
+<pre class="line-numbers language-none"><code class="language-none">230   proxy:
+231     harborimage: goharbor/nginx-photon:v2.5.3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>启动nginx组件:</p>
+<pre class="line-numbers language-none"><code class="language-none">$ docker-compose up -d proxy
+harbor-log is up-to-date
+harbor-portal is up-to-date
+redis is up-to-date
+registry is up-to-date
+harbor-db is up-to-date
+harbor-core is up-to-date
+Creating nginx ... done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>测试：</p>
+<pre class="line-numbers language-none"><code class="language-none">$ docker-compose exec proxy /bin/bash
+nginx [ / ]$ nginx -V
+nginx version: nginx/1.22.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>实际上harbor中portal和proxy都用到了nginx，但是portal并未对外映射端口，因此也未被扫描到，可以不用修复。若需修复，修复方式可参考proxy的流程。</p>
+</blockquote>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><ul>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/goharbor/harbor/issues/17378">https://github.com/goharbor/harbor/issues/17378</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/goharbor/harbor/blob/v2.5.3/make/photon/Makefile">https://github.com/goharbor/harbor/blob/v2.5.3/make/photon/Makefile</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/goharbor/harbor/blob/v2.5.3/make/photon/nginx/Dockerfile">https://github.com/goharbor/harbor/blob/v2.5.3/make/photon/nginx/Dockerfile</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/goharbor/harbor/blob/v2.5.3/make/photon/nginx/Dockerfile.base">https://github.com/goharbor/harbor/blob/v2.5.3/make/photon/nginx/Dockerfile.base</a></p>
+</li>
+</ul>
+
                 
             </div>
             <hr/>
@@ -524,7 +700,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://bestmem.github.io/friends/index.html">https://bestmem.github.io/friends/index.html</a>
+                    <a href="https://bestmem.github.io/2022/08/16/harbor/harbor%E5%8D%87%E7%BA%A7nginx%E7%BB%84%E4%BB%B6/">https://bestmem.github.io/2022/08/16/harbor/harbor%E5%8D%87%E7%BA%A7nginx%E7%BB%84%E4%BB%B6/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -561,7 +737,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/harbor/">
+                                    <span class="chip bg-color">harbor</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -609,13 +789,13 @@
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/friends/index.html">
+                <a href="/2022/08/16/harbor/harbor%E5%8D%87%E7%BA%A7nginx%E7%BB%84%E4%BB%B6/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="friends">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="harbor升级nginx组件">
                         
-                        <span class="card-title">friends</span>
+                        <span class="card-title">harbor升级nginx组件</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -626,17 +806,29 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-16
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            bestmem
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/zabbix/" class="post-category">
+                                    zabbix
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/harbor/">
+                        <span class="chip bg-color">harbor</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -644,16 +836,16 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/friends/index.html">
+                <a href="/2022/08/15/mysql/mysql%E5%8D%87%E7%BA%A7/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="friends">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="mysql5.7升级">
                         
-                        <span class="card-title">friends</span>
+                        <span class="card-title">mysql5.7升级</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -664,17 +856,28 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-15
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            bestmem
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/mysql/" class="post-category">
+                                    mysql
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/mysql/">
+                        <span class="chip bg-color">mysql</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
