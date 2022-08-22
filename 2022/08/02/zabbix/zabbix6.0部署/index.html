@@ -494,21 +494,21 @@ mysql
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-08-16
+                    2022-08-22
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1k
+                    1.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    7 分
                 </div>
                 
 
@@ -635,7 +635,7 @@ LANG=zh_CN.UTF-8<span aria-hidden="true" class="line-numbers-rows"><span></span>
 <li>刷新zabbix页面即可</li>
 </ol>
 <p><img src="/2022/08/02/zabbix/zabbix6.0%E9%83%A8%E7%BD%B2/image-20220804191756119.png" alt="image-20220804191756119"></p>
-<h1 id="zabbix-agent介绍"><a href="#zabbix-agent介绍" class="headerlink" title="zabbix agent介绍"></a>zabbix agent介绍</h1><p><a target="_blank" rel="noopener" href="https://www.zabbix.com/documentation/6.0/zh/manual/appendix/agent_comparison">https://www.zabbix.com/documentation/6.0/zh/manual/appendix/agent_comparison</a></p>
+<h1 id="zabbix-agent-amp-agent2介绍"><a href="#zabbix-agent-amp-agent2介绍" class="headerlink" title="zabbix agent &amp; agent2介绍"></a>zabbix agent &amp; agent2介绍</h1><p><a target="_blank" rel="noopener" href="https://www.zabbix.com/documentation/6.0/zh/manual/appendix/agent_comparison">https://www.zabbix.com/documentation/6.0/zh/manual/appendix/agent_comparison</a></p>
 <p>zabbix agent工具用于采集主机的数据并上报至zabbix server，部署于需要监控的主机节点，目前有zabbix-agent和zabbix-agent2两种，简略对比情况如下：</p>
 <table>
 <thead>
@@ -682,7 +682,62 @@ LANG=zh_CN.UTF-8<span aria-hidden="true" class="line-numbers-rows"><span></span>
 </tr>
 </tbody></table>
 <p>关键点：zabbix-agent2不仅支持zabbix-agent的监控项，还支持对Docker, Memcached, MySQL, PostgreSQL, Redis, systemd等进行监控，所以一般推荐使用zabbix-agent2，官方默认安装的zabbix-agent。</p>
-<h2 id="zabbix-agent"><a href="#zabbix-agent" class="headerlink" title="zabbix-agent"></a>zabbix-agent</h2><h2 id="zabbix-agent2"><a href="#zabbix-agent2" class="headerlink" title="zabbix-agent2"></a>zabbix-agent2</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h1 id="参考地址"><a href="#参考地址" class="headerlink" title="参考地址"></a>参考地址</h1><p><a target="_blank" rel="noopener" href="https://www.zabbix.com/documentation/6.0/zh/manual/installation/requirements">https://www.zabbix.com/documentation/6.0/zh/manual/installation/requirements</a></p>
+<h2 id="zabbix-agent"><a href="#zabbix-agent" class="headerlink" title="zabbix-agent"></a>zabbix-agent</h2><h2 id="zabbix-agent2"><a href="#zabbix-agent2" class="headerlink" title="zabbix-agent2"></a>zabbix-agent2</h2><h3 id="批量安装"><a href="#批量安装" class="headerlink" title="批量安装"></a>批量安装</h3><pre class="line-numbers language-none"><code class="language-none"># 下载并安装zabbix-agent2
+$ ansible linux -m shell -a 'wget https://repo.huaweicloud.com/zabbix/zabbix/6.0/rhel/7/x86_64/zabbix-agent2-6.0.7-1.el7.x86_64.rpm -O /tmp/zabbix-agent2-6.0.7-1.el7.x86_64.rpm &amp;&amp; yum localinstall /tmp/zabbix-agent2-6.0.7-1.el7.x86_64.rpm -y &amp;&amp; rm -fr /tmp/zabbix-agent2-6.0.7-1.el7.x86_64.rpm'
+
+# 修改配置文件
+$ ansible linux -m shell -a 'sed -i "s#Server=127.0.0.1#Server=192.168.168.226#g" /etc/zabbix/zabbix_agent2.conf'
+
+# 启动服务
+$ ansible linux -m systemd -a 'name=zabbix-agent2.service state=started enabled=true'
+
+# 添加防火墙策略
+$ ansible linux -m shell -a 'iptables -I INPUT -p tcp -s 192.168.168.226 --dport 10050 -j ACCEPT &amp;&amp; service iptables save'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="批量添加监控"><a href="#批量添加监控" class="headerlink" title="批量添加监控"></a>批量添加监控</h3><p>首先在<code>配置</code>–&gt;<code>主机</code>–&gt;<code>创建主机</code>中创建一个主机模板：</p>
+<blockquote>
+<p><code>主机名称</code>应与<code>可见的名称</code>一致，否则无法批量修改。</p>
+<p>批量添加的主机应该确保<code>模板</code>、<code>群组</code>的信息是一致的，不一致的部分后续手动修改。</p>
+</blockquote>
+<p><img src="/2022/08/02/zabbix/zabbix6.0%E9%83%A8%E7%BD%B2/image-20220822150428559.png" alt="image-20220822150428559"></p>
+<p>然后将该模板导出：</p>
+<p><img src="/2022/08/02/zabbix/zabbix6.0%E9%83%A8%E7%BD%B2/image-20220822150647341.png" alt="image-20220822150647341"></p>
+<p>将<code>zbx_export_hosts.yaml</code>文件上传至linux服务器，并在同级目录下创建以下shell脚本，执行后生成批量导入文件<code>zbx_input_hosts.yaml</code>：</p>
+<blockquote>
+<p>修改变量<code>zbx_export_hosts</code>为主机模板文件zbx_export_hosts.yaml中的主机名称字段</p>
+<p>修改变量<code>hosts</code>为需要批量添加的主机</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@194 all<span class="token punctuation">]</span><span class="token comment"># ls</span>
+zbx_export_hosts.yaml  zbx_input_hosts.sh  zbx_input_hosts.yaml
+
+<span class="token punctuation">[</span>root@194 all<span class="token punctuation">]</span><span class="token comment"># cat zbx_input_hosts.sh</span>
+<span class="token comment">#!/bin/bash</span>
+<span class="token assign-left variable">zbx_export_hosts</span><span class="token operator">=</span><span class="token number">192.168</span>.168.192	<span class="token comment"># 修改为主机模板文件zbx_export_hosts.yaml中的主机名称字段</span>
+<span class="token assign-left variable">hosts</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">192.168</span>.168.202 <span class="token number">192.168</span>.168.206 <span class="token number">192.168</span>.168.208 <span class="token number">192.168</span>.168.209 <span class="token number">192.168</span>.168.218 <span class="token number">192.168</span>.168.219 <span class="token number">192.168</span>.168.220 <span class="token number">192.168</span>.168.221 <span class="token number">192.168</span>.168.222 <span class="token number">192.168</span>.168.225<span class="token punctuation">)</span>	<span class="token comment"># 需要批量添加的主机</span>
+<span class="token assign-left variable">tmp_name</span><span class="token operator">=</span><span class="token variable"><span class="token variable">`</span><span class="token builtin class-name">pwd</span><span class="token variable">`</span></span>/zbx_export_hosts.yaml
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token operator">!</span> -f <span class="token variable">${tmp_name}</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+   <span class="token builtin class-name">echo</span> <span class="token string">'没有zabbix模板文件: zbx_export_hosts.yaml'</span>
+   <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+<span class="token keyword">fi</span>
+<span class="token keyword">for</span> <span class="token for-or-select variable">host</span> <span class="token keyword">in</span> <span class="token variable">${hosts<span class="token punctuation">[</span>@<span class="token punctuation">]</span>}</span><span class="token punctuation">;</span> <span class="token keyword">do</span>
+    <span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token variable">$host</span> <span class="token operator">==</span> <span class="token variable">${hosts<span class="token punctuation">[</span>0<span class="token punctuation">]</span>}</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+        <span class="token function">sed</span> <span class="token string">"s#<span class="token variable">${zbx_export_hosts}</span>#<span class="token variable">${host}</span>#g"</span> <span class="token variable">${tmp_name}</span> <span class="token operator">&gt;&gt;</span> zbx_input_hosts.yaml
+        <span class="token builtin class-name">continue</span>
+    <span class="token keyword">fi</span>
+    <span class="token function">sed</span> -n <span class="token string">"s#<span class="token variable">${zbx_export_hosts}</span>#<span class="token variable">${host}</span>#g;/hosts:/,\<span class="token variable">$p</span>"</span> <span class="token variable">${tmp_name}</span> <span class="token operator">|</span> <span class="token function">tail</span> -n +2 <span class="token operator">&gt;&gt;</span> zbx_input_hosts.yaml
+<span class="token keyword">done</span>
+
+<span class="token punctuation">[</span>root@194 all<span class="token punctuation">]</span><span class="token comment"># bash ./zbx_input_hosts.sh</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>执行成功后，拷贝<code>zbx_input_hosts.yaml</code>文件到桌面，并进行导入：</p>
+<p><img src="/2022/08/02/zabbix/zabbix6.0%E9%83%A8%E7%BD%B2/image-20220822174944613.png" alt="image-20220822174944613"></p>
+<p>等待片刻，可查看<code>可用性</code>是否正常：</p>
+<blockquote>
+<p>灰色为初始状态，绿色为正常状态，红色为警告状态</p>
+<p>如果一直为灰色，可通过重启zabbix server来解决。如果为红色，需要检查zabbix agent是否正常。</p>
+</blockquote>
+<p><img src="/2022/08/02/zabbix/zabbix6.0%E9%83%A8%E7%BD%B2/image-20220822180107266.png" alt="image-20220822180107266"></p>
+<h1 id="参考地址"><a href="#参考地址" class="headerlink" title="参考地址"></a>参考地址</h1><p><a target="_blank" rel="noopener" href="https://www.zabbix.com/documentation/6.0/zh/manual/installation/requirements">https://www.zabbix.com/documentation/6.0/zh/manual/installation/requirements</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.zabbix.com/download?zabbix=6.0&amp;os_distribution=ubuntu&amp;os_version=20.04_focal&amp;db=mysql&amp;ws=nginx">https://www.zabbix.com/download?zabbix=6.0&amp;os_distribution=ubuntu&amp;os_version=20.04_focal&amp;db=mysql&amp;ws=nginx</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.zabbix.com/documentation/6.0/zh/manual/appendix/agent_comparison">https://www.zabbix.com/documentation/6.0/zh/manual/appendix/agent_comparison</a></p>
 
@@ -1080,7 +1135,7 @@ LANG=zh_CN.UTF-8<span aria-hidden="true" class="line-numbers-rows"><span></span>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">11.7k</span>
+                        class="white-color">12.3k</span>
             
             
             
