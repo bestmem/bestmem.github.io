@@ -6,7 +6,7 @@
   <link href="https://bestmem.github.io/atom.xml" rel="self"/>
   
   <link href="https://bestmem.github.io/"/>
-  <updated>2022-08-16T05:07:03.542Z</updated>
+  <updated>2022-10-21T09:59:31.450Z</updated>
   <id>https://bestmem.github.io/</id>
   
   <author>
@@ -15,6 +15,109 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>zabbix告警</title>
+    <link href="https://bestmem.github.io/2022/10/21/zabbix/zabbix6.0%E5%91%8A%E8%AD%A6/"/>
+    <id>https://bestmem.github.io/2022/10/21/zabbix/zabbix6.0%E5%91%8A%E8%AD%A6/</id>
+    <published>2022-10-21T08:17:07.000Z</published>
+    <updated>2022-10-21T09:59:31.450Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;概要&quot;&gt;&lt;a href=&quot;#概要&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="zabbix" scheme="https://bestmem.github.io/categories/zabbix/"/>
+    
+    
+    <category term="zabbix" scheme="https://bestmem.github.io/tags/zabbix/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>zabbix6.0 Discovery</title>
+    <link href="https://bestmem.github.io/2022/10/20/zabbix/zabbix6.0%E5%8F%91%E7%8E%B0/"/>
+    <id>https://bestmem.github.io/2022/10/20/zabbix/zabbix6.0%E5%8F%91%E7%8E%B0/</id>
+    <published>2022-10-20T09:26:40.000Z</published>
+    <updated>2022-10-21T07:44:28.078Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;概要&quot;&gt;&lt;a href=&quot;#概要&quot; class=&quot;headerlink&quot; title=&quot;概要&quot;&gt;&lt;/a&gt;概要&lt;/h1&gt;&lt;p&gt;我们知道zabbix数据采集有主动模式和被动模式之分（以zabbix</summary>
+        
+      
+    
+    
+    
+    <category term="zabbix" scheme="https://bestmem.github.io/categories/zabbix/"/>
+    
+    
+    <category term="zabbix" scheme="https://bestmem.github.io/tags/zabbix/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>lvm实践</title>
+    <link href="https://bestmem.github.io/2022/09/01/linux/%E7%A3%81%E7%9B%98/lvm%E5%AE%9E%E8%B7%B5/"/>
+    <id>https://bestmem.github.io/2022/09/01/linux/%E7%A3%81%E7%9B%98/lvm%E5%AE%9E%E8%B7%B5/</id>
+    <published>2022-09-01T02:02:19.000Z</published>
+    <updated>2022-09-07T03:57:11.572Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;工作原理&quot;&gt;&lt;a href=&quot;#工作原理&quot; class=&quot;headerlink&quot; title=&quot;工作原理&quot;&gt;&lt;/a&gt;工作原理&lt;/h1&gt;&lt;p&gt;lvm（Logical Volume Manager</summary>
+        
+      
+    
+    
+    
+    <category term="linux" scheme="https://bestmem.github.io/categories/linux/"/>
+    
+    
+    <category term="linux" scheme="https://bestmem.github.io/tags/linux/"/>
+    
+    <category term="lvm" scheme="https://bestmem.github.io/tags/lvm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>传统分区扩容</title>
+    <link href="https://bestmem.github.io/2022/09/01/linux/%E7%A3%81%E7%9B%98/%E4%BC%A0%E7%BB%9F%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9/"/>
+    <id>https://bestmem.github.io/2022/09/01/linux/%E7%A3%81%E7%9B%98/%E4%BC%A0%E7%BB%9F%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9/</id>
+    <published>2022-09-01T02:02:19.000Z</published>
+    <updated>2022-09-07T06:06:39.894Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h1&gt;&lt;p&gt;采用传统分区方式，/分区空间不足，进行扩容。&lt;/p&gt;
+&lt;pre class=&quot;line-numbers</summary>
+        
+      
+    
+    
+    
+    <category term="linux" scheme="https://bestmem.github.io/categories/linux/"/>
+    
+    
+    <category term="linux" scheme="https://bestmem.github.io/tags/linux/"/>
+    
+  </entry>
   
   <entry>
     <title>harbor升级nginx组件</title>
@@ -73,7 +176,7 @@
     <link href="https://bestmem.github.io/2022/08/02/zabbix/zabbix6.0%E9%83%A8%E7%BD%B2/"/>
     <id>https://bestmem.github.io/2022/08/02/zabbix/zabbix6.0%E9%83%A8%E7%BD%B2/</id>
     <published>2022-08-02T00:53:57.000Z</published>
-    <updated>2022-08-22T10:06:11.429Z</updated>
+    <updated>2022-10-20T09:05:56.636Z</updated>
     
     
       

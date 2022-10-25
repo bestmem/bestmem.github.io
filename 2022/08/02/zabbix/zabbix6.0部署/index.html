@@ -25,7 +25,11 @@ mysql
 8.0.30
 
 
-安装zabbix安装zabbix存储库# wget https://repo">
+zabbix_server、zabbix_agent
+6.0.7
+
+
+安装z">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -494,21 +498,21 @@ mysql
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-08-22
+                    2022-10-20
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.6k
+                    1.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    8 分
                 </div>
                 
 
@@ -550,12 +554,16 @@ mysql
 <td>mysql</td>
 <td>8.0.30</td>
 </tr>
+<tr>
+<td>zabbix_server、zabbix_agent</td>
+<td>6.0.7</td>
+</tr>
 </tbody></table>
 <h1 id="安装zabbix"><a href="#安装zabbix" class="headerlink" title="安装zabbix"></a>安装zabbix</h1><h2 id="安装zabbix存储库"><a href="#安装zabbix存储库" class="headerlink" title="安装zabbix存储库"></a>安装zabbix存储库</h2><pre class="line-numbers language-none"><code class="language-none"># wget https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.0-3+ubuntu20.04_all.deb
 # dpkg -i zabbix-release_6.0-3+ubuntu20.04_all.deb
 # apt update<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="安装zabbix-server，frontend-agent"><a href="#安装zabbix-server，frontend-agent" class="headerlink" title="安装zabbix server，frontend, agent"></a>安装zabbix server，frontend, agent</h2><pre class="line-numbers language-none"><code class="language-none"># apt install zabbix-server-mysql zabbix-frontend-php zabbix-nginx-conf zabbix-sql-scripts zabbix-agent<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="安装zabbix-server-frontend-agent"><a href="#安装zabbix-server-frontend-agent" class="headerlink" title="安装zabbix server, frontend, agent"></a>安装zabbix server, frontend, agent</h2><pre class="line-numbers language-none"><code class="language-none"># apt install zabbix-server-mysql zabbix-frontend-php zabbix-nginx-conf zabbix-sql-scripts zabbix-agent2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h2 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h2><p><strong>安装要求：</strong></p>
 <table>
@@ -590,13 +598,14 @@ DBPassword=password<span aria-hidden="true" class="line-numbers-rows"><span></sp
 <pre class="line-numbers language-none"><code class="language-none">listen          8080;
 server_name     192.168.168.226;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h2 id="启动zabbix服务和agent"><a href="#启动zabbix服务和agent" class="headerlink" title="启动zabbix服务和agent"></a>启动zabbix服务和agent</h2><pre class="line-numbers language-none"><code class="language-none"># systemctl restart zabbix-server zabbix-agent nginx php7.4-fpm
-# systemctl enable zabbix-server zabbix-agent nginx php7.4-fpm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="启动zabbix服务和agent"><a href="#启动zabbix服务和agent" class="headerlink" title="启动zabbix服务和agent"></a>启动zabbix服务和agent</h2><pre class="line-numbers language-none"><code class="language-none"># systemctl restart zabbix-server zabbix-agent2 nginx php7.4-fpm
+# systemctl enable zabbix-server zabbix-agent2 nginx php7.4-fpm<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <h2 id="配置zabbix-fronend"><a href="#配置zabbix-fronend" class="headerlink" title="配置zabbix fronend"></a>配置zabbix fronend</h2><p>访问<a target="_blank" rel="noopener" href="http://192.168.168.226:8080/setup.php">http://192.168.168.226:8080/setup.php</a></p>
 <h2 id="汉化"><a href="#汉化" class="headerlink" title="汉化"></a>汉化</h2><pre class="line-numbers language-none"><code class="language-none"># 安装中文库
-$ apt install language-pack-zh-hans<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+$ apt install language-pack-zh-hans -y<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
+<p>重启server：<code>systemctl restart zabbix-server</code>，打开<a target="_blank" rel="noopener" href="http://192.168.168.226:8080/setup.php%E9%A1%B5%E9%9D%A2%EF%BC%8C%E6%9F%A5%E7%9C%8BDefault">http://192.168.168.226:8080/setup.php页面，查看Default</a> language是否可选Chinese（zh-CN）。如果不行，请按照以下方式继续：</p>
 <p>编辑<code>/etc/locale.gen</code>文件</p>
 <pre class="line-numbers language-none"><code class="language-none"># 取消注释
 zh_CN.UTF-8 UTF-8<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
@@ -682,10 +691,10 @@ LANG=zh_CN.UTF-8<span aria-hidden="true" class="line-numbers-rows"><span></span>
 </tr>
 </tbody></table>
 <p>关键点：zabbix-agent2不仅支持zabbix-agent的监控项，还支持对Docker, Memcached, MySQL, PostgreSQL, Redis, systemd等进行监控，所以一般推荐使用zabbix-agent2，官方默认安装的zabbix-agent。</p>
-<h2 id="zabbix-agent"><a href="#zabbix-agent" class="headerlink" title="zabbix-agent"></a>zabbix-agent</h2><h2 id="zabbix-agent2"><a href="#zabbix-agent2" class="headerlink" title="zabbix-agent2"></a>zabbix-agent2</h2><h3 id="批量安装"><a href="#批量安装" class="headerlink" title="批量安装"></a>批量安装</h3><pre class="line-numbers language-none"><code class="language-none"># 下载并安装zabbix-agent2
+<h2 id="zabbix-agent"><a href="#zabbix-agent" class="headerlink" title="zabbix-agent"></a>zabbix-agent</h2><h2 id="zabbix-agent2"><a href="#zabbix-agent2" class="headerlink" title="zabbix-agent2"></a>zabbix-agent2</h2><h3 id="批量安装（linux）"><a href="#批量安装（linux）" class="headerlink" title="批量安装（linux）"></a>批量安装（linux）</h3><pre class="line-numbers language-none"><code class="language-none"># 下载并安装zabbix-agent2
 $ ansible linux -m shell -a 'wget https://repo.huaweicloud.com/zabbix/zabbix/6.0/rhel/7/x86_64/zabbix-agent2-6.0.7-1.el7.x86_64.rpm -O /tmp/zabbix-agent2-6.0.7-1.el7.x86_64.rpm &amp;&amp; yum localinstall /tmp/zabbix-agent2-6.0.7-1.el7.x86_64.rpm -y &amp;&amp; rm -fr /tmp/zabbix-agent2-6.0.7-1.el7.x86_64.rpm'
 
-# 修改配置文件
+# 修改配置文件(192.168.168.226为zabbix server主机IP)
 $ ansible linux -m shell -a 'sed -i "s#Server=127.0.0.1#Server=192.168.168.226#g" /etc/zabbix/zabbix_agent2.conf'
 
 # 启动服务
@@ -693,6 +702,23 @@ $ ansible linux -m systemd -a 'name=zabbix-agent2.service state=started enabled=
 
 # 添加防火墙策略
 $ ansible linux -m shell -a 'iptables -I INPUT -p tcp -s 192.168.168.226 --dport 10050 -j ACCEPT &amp;&amp; service iptables save'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="批量安装（windows）"><a href="#批量安装（windows）" class="headerlink" title="批量安装（windows）"></a>批量安装（windows）</h3><pre class="line-numbers language-none"><code class="language-none"># 下载zabbix-agent2
+$ wget https://cdn.zabbix.com/zabbix/binaries/stable/6.0/6.0.7/zabbix_agent2-6.0.7-windows-amd64-openssl.msi
+
+# 创建安装脚本
+$ cat install.bat
+@echo off
+title install zabbix-agent2 
+:: 获取以太网ip
+for /f "tokens=16" %%i in ('ipconfig ^|find /i "ipv4"') do set ip=%%i
+:: 安装zabbix_agent2-6.0.7-windows-amd64-openssl.msi
+msiexec /i C:\Users\Administrator\Desktop\zabbix_agent2-6.0.7-windows-amd64-openssl.msi /qb InstallFolder="E:\bestmem\bestmem_install\Zabbix Agent 2\"  Server="192.168.168.226"  Hostname=%ip%
+
+# 拷贝安装包和安装脚本到目标主机
+$ ansible windows -m win_copy -a 'src=./zabbix_agent2-6.0.7-windows-amd64-openssl.msi dest=C:\Users\Administrator\Desktop\'
+$ ansible windows -m win_copy -a 'src=./install.bat dest=C:\Users\Administrator\Desktop\'
+$ ansible windows -m win_shell -a 'C:\Users\Administrator\Desktop\install.bat'<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="批量添加监控"><a href="#批量添加监控" class="headerlink" title="批量添加监控"></a>批量添加监控</h3><p>首先在<code>配置</code>–&gt;<code>主机</code>–&gt;<code>创建主机</code>中创建一个主机模板：</p>
 <blockquote>
@@ -1135,7 +1161,7 @@ zbx_export_hosts.yaml  zbx_input_hosts.sh  zbx_input_hosts.yaml
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">12.3k</span>
+                        class="white-color">22.8k</span>
             
             
             
