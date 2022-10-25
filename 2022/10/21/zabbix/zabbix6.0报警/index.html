@@ -4,12 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="zabbix告警, 小二来了">
-    <meta name="description" content="概要告警简单流程：告警源（产生告警事件）–&amp;gt;告警媒介（告警渠道）–&amp;gt;接收方
-zabbix告警源来自于触发器，zabbix模板中默认配置有多个触发器，是根据监控数据进行计算后产生的告警事件。
-
-
-这里我们不过多介绍，可以对模板的触">
+    <meta name="keywords" content="zabbix报警, 小二来了">
+    <meta name="description" content="概要报警简单流程：报警源（产生报警事件）–&amp;gt;报警媒介（报警渠道）–&amp;gt;触发动作（发送告警规则） –&amp;gt;接收方（接收告警）
+zabbix报警源来自于触发器，zabbix模板中默认配置有多个触发器，是根据监控数据进行计算后产生的报">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -32,7 +29,7 @@ zabbix告警源来自于触发器，zabbix模板中默认配置有多个触发�
     </style>
 
 
-    <title>zabbix告警 | 小二来了</title>
+    <title>zabbix报警 | 小二来了</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -325,12 +322,12 @@ zabbix告警源来自于触发器，zabbix模板中默认配置有多个触发�
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">zabbix告警</h1>
+                    <h1 class="description center-align post-title">zabbix报警</h1>
                 </div>
             </div>
         </div>
@@ -478,21 +475,21 @@ zabbix告警源来自于触发器，zabbix模板中默认配置有多个触发�
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-10-21
+                    2022-10-25
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    286
+                    1.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    5 分
                 </div>
                 
 
@@ -515,15 +512,15 @@ zabbix告警源来自于触发器，zabbix模板中默认配置有多个触发�
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h1><p>告警简单流程：告警源（产生告警事件）–&gt;告警媒介（告警渠道）–&gt;接收方</p>
-<p>zabbix告警源来自于触发器，zabbix模板中默认配置有多个触发器，是根据监控数据进行计算后产生的告警事件。</p>
-<p><img src="/2022/10/21/zabbix/zabbix6.0%E5%91%8A%E8%AD%A6/image-20221021171053217.png"></p>
-<p><img src="/2022/10/21/zabbix/zabbix6.0%E5%91%8A%E8%AD%A6/image-20221021171305757.png"></p>
-<p>这里我们不过多介绍，可以对模板的触发器进行新增或删除然后应用到相应的主机来决定需要针对哪些事件进行告警。模板通常是应用于多个主机的，如果需要对单个主机新增告警事件，可以点击<code>配置</code>–&gt;<code>主机</code>–&gt;<code>触发器</code>来进行新增或删除。</p>
-<h1 id="告警媒介"><a href="#告警媒介" class="headerlink" title="告警媒介"></a>告警媒介</h1><h2 id="企业微信群告警"><a href="#企业微信群告警" class="headerlink" title="企业微信群告警"></a>企业微信群告警</h2><p><code>管理</code>–&gt;<code>报警媒介类型</code>–&gt;<code>创建媒体类型</code></p>
-<p><img src="/2022/10/21/zabbix/zabbix6.0%E5%91%8A%E8%AD%A6/image-20221021174958833.png" alt="image-20221021174958833"></p>
-<p>这里我们创建了一个名称为企业微信的告警媒介，具体信息如下：</p>
-<p><img src="/2022/10/21/zabbix/zabbix6.0%E5%91%8A%E8%AD%A6/image-20221021175106521.png" alt="image-20221021175106521"></p>
+                <h1 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h1><p>报警简单流程：报警源（产生报警事件）–&gt;报警媒介（报警渠道）–&gt;触发动作（发送告警规则） –&gt;接收方（接收告警）</p>
+<p>zabbix报警源来自于触发器，zabbix模板中默认配置有多个触发器，是根据监控数据进行计算后产生的报警事件。</p>
+<p><img src="/2022/10/21/zabbix/zabbix6.0%E6%8A%A5%E8%AD%A6/image-20221021171053217.png"></p>
+<p><img src="/2022/10/21/zabbix/zabbix6.0%E6%8A%A5%E8%AD%A6/image-20221021171305757.png"></p>
+<p>可以对模板的触发器进行新增或删除然后应用到相应的主机来决定需要针对哪些事件进行报警。模板通常是应用于多个主机的，如果需要对单个主机新增报警事件，可以点击<code>配置</code>–&gt;<code>主机</code>–&gt;<code>触发器</code>来进行新增或删除，这里我们不过多介绍。</p>
+<h1 id="企业微信报警"><a href="#企业微信报警" class="headerlink" title="企业微信报警"></a>企业微信报警</h1><h2 id="报警媒介"><a href="#报警媒介" class="headerlink" title="报警媒介"></a>报警媒介</h2><p><code>管理</code>–&gt;<code>报警媒介类型</code>–&gt;<code>创建媒体类型</code></p>
+<p><img src="/2022/10/21/zabbix/zabbix6.0%E6%8A%A5%E8%AD%A6/image-20221021174958833.png"></p>
+<p>这里我们创建了一个名称为<code>企业微信</code>的报警媒介，具体信息如下：</p>
+<p><img src="/2022/10/21/zabbix/zabbix6.0%E6%8A%A5%E8%AD%A6/image-20221021175106521.png"></p>
 <ul>
 <li><p>类型：我们选择脚本</p>
 </li>
@@ -534,8 +531,105 @@ zabbix告警源来自于触发器，zabbix模板中默认配置有多个触发�
 $ ll /usr/lib/zabbix/alertscripts
 -rwxr-xr-x 1 zabbix zabbix 1454 Sep 23 22:13 1.py*<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>告警脚本默认存放目录为<code>/usr/lib/zabbix/alertscripts</code>，</p>
+<p>报警脚本默认存放目录为<code>/usr/lib/zabbix/alertscripts</code>，而zabbix server配置文件中默认是以zabbix用户启动运行的，所以需要对该目录及其下文件授予zabbix用户权限<code>chown zabbix:zabbix /usr/lib/zabbix -R</code></p>
+<pre class="line-numbers language-none"><code class="language-none">$ cat /usr/lib/zabbix/alertscripts/1.py
+#!/usr/bin/env python3
+#coding:utf8
+import argparse
+import requests
+
+parse = argparse.ArgumentParser()
+parse.add_argument("-u", "--user", help='Specify alerter via {ALERT.SENDTO}.')
+parse.add_argument("-s", "--subject", help='Specify alert subject via {ALERT.SUBJECT}')
+parse.add_argument("-m", "--message", help='Specify alert message via {ALERT.MESSAGE}')
+arg = parse.parse_args()  # 解析参数，并将值赋予变量arg：Namespace(echo='2131') &lt;class 'argparse.Namespace'&gt;
+
+zabbix_webhook = '填写自己的企业微信群机器人webhook'
+
+# mentioned_list此处不生效
+data = {
+    "msgtype": "markdown",
+    "markdown": {
+        "content": arg.message + "\n" + "&lt;@LongWeiChao&gt;",
+        "mentioned_list": [f"{arg.user}"],
+    }
+}
+requests.post(url=zabbix_webhook, headers={'Content-Type': 'application/json'}, json=data)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>脚本参数：传递了三个参数</p>
+<ul>
+<li><code>{ALERT.SENDTO}</code>：传递报警发送人</li>
+<li><code> {ALERT.SUBJECT}</code>：传递报警主题</li>
+<li><code>{ALERT.MESSAGE}</code>：传递报警消息，其内容由<code>Message templates</code>中定义的内容决定</li>
+</ul>
 </li>
+<li><p>描述：用于简单介绍该报警媒介</p>
+</li>
+</ul>
+<p>配置<code>Message templates</code>：</p>
+<p><img src="/2022/10/21/zabbix/zabbix6.0%E6%8A%A5%E8%AD%A6/image-20221025105207521.png"></p>
+<p>添加两个模板，分别为报警模板和恢复模板：</p>
+<p>报警模板：</p>
+<ul>
+<li><p>Message type：问题</p>
+</li>
+<li><p>主题：告警名称: {EVENT.NAME}</p>
+</li>
+<li><p>消息</p>
+<pre class="line-numbers language-none"><code class="language-none">&lt;font color="warning"&gt;zabbix告警通知&lt;/font&gt;
+        &gt;告警名称：{EVENT.NAME}
+        &gt;故障主机：{HOST.NAME}
+        &gt;告警时间：{EVENT.DATE} {EVENT.TIME}
+        &gt;持续时间：{EVENT.DURATION}
+        &gt;告警级别：{EVENT.SEVERITY}
+        &gt;事件ID：{EVENT.ID}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<p>恢复模板：</p>
+<ul>
+<li><p>Message type：Problem recovery</p>
+</li>
+<li><p>主题：Resolved in {EVENT.DURATION}: {EVENT.NAME}</p>
+</li>
+<li><p>消息</p>
+<pre class="line-numbers language-none"><code class="language-none">&lt;font color="info"&gt;zabbix告警恢复通知&lt;/font&gt; 
+        &gt;告警名称：{EVENT.NAME}
+        &gt;故障主机：{HOST.NAME}
+        &gt;告警时间：{EVENT.DATE} {EVENT.TIME}
+        &gt;持续时间：{EVENT.DURATION}
+        &gt;告警级别：{EVENT.SEVERITY}
+        &gt;事件ID：{EVENT.ID}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<blockquote>
+<p>主题对应脚本参数中的{ALERT.SUBJECT}，消息对应脚本参数中的 {ALERT.MESSAGE}，后面为用户配置报警媒介时的收件人对应脚本参数中的{ALERT.SENDTO}，这些都是zabbix中的固定变量。</p>
+</blockquote>
+<p>可通过官方文档查看<a target="_blank" rel="noopener" href="https://www.zabbix.com/documentation/6.0/zh/manual/appendix/macros/supported_by_location">zabbix支持的变量</a>来更好的书写报警模板信息。</p>
+<h2 id="触发动作"><a href="#触发动作" class="headerlink" title="触发动作"></a>触发动作</h2><p>定义报警规则，如指定<code>报警源</code>产生的哪些<code>报警事件</code>需要进行报警，通过哪些<code>报警媒介</code>发送报警，以及发送给哪些<code>用户</code>等。</p>
+<p><img src="/2022/10/21/zabbix/zabbix6.0%E6%8A%A5%E8%AD%A6/image-20221025115253794.png"></p>
+<p><img src="/2022/10/21/zabbix/zabbix6.0%E6%8A%A5%E8%AD%A6/image-20221025115319947.png"></p>
+<ul>
+<li>名称：报警触发动作名称</li>
+<li>条件：用于匹配哪些报警事件可以触发报警，这里匹配了gupt主机群组所有服务器产生的所有报警事件</li>
+</ul>
+<p><img src="/2022/10/21/zabbix/zabbix6.0%E6%8A%A5%E8%AD%A6/image-20221025115329992.png"></p>
+<ul>
+<li>默认操作步骤持续时间： 默认情况下，一个操作步骤的持续时间为（60秒到1周），例如，长达一小时的步骤持续时间意味着，如果进行了该操作，一个小时后才会执行下个步骤。（60s、1m、2h、1d）</li>
+<li>操作：按步骤执行，指定发送消息至用户群组或某一用户，添加操作的时候会有<code>Custom message</code>自定义，作用等同于报警媒介中的<code>Message templates</code>的消息，但是优先级低于报警媒介中的设定。</li>
+<li>恢复操作：当操作结束后，是否发送消息。</li>
+<li>更新操作：当操作变更后，是否发送消息</li>
+</ul>
+<h2 id="接收方"><a href="#接收方" class="headerlink" title="接收方"></a>接收方</h2><p>有个报警媒介之后，我们便可以通过<code>管理</code>–&gt;<code>用户</code>–&gt;<code>报警媒介</code>或者<code>User settings</code>–&gt;<code>Profile</code>–&gt;<code>报警媒介</code>来为需要接收报警的用户添加报警媒介。</p>
+<p><img src="/2022/10/21/zabbix/zabbix6.0%E6%8A%A5%E8%AD%A6/image-20221025103207081.png"></p>
+<ul>
+<li>类型：选择已经创建好的<code>企业微信</code>报警媒介</li>
+<li>接收方：为企业微信群自己的名称，一般为姓名拼音（如：ZhangSan）或者手机号码，对应报警媒介<code>{ALERT.SENDTO}</code>参数，用于@相关人员。</li>
+<li>报警时间：可以发送报警的时间区域</li>
+<li>如果存在严重性则使用：哪些级别的报警需要发送。</li>
+</ul>
+<p>同时，我们可以为zabbix配置web页面告警提示：</p>
+<p><img src="/2022/10/21/zabbix/zabbix6.0%E6%8A%A5%E8%AD%A6/image-20221025155924394.png"></p>
+<h1 id="报警效果展示"><a href="#报警效果展示" class="headerlink" title="报警效果展示"></a>报警效果展示</h1><h2 id="企业微信"><a href="#企业微信" class="headerlink" title="企业微信"></a>企业微信</h2><p><img src="/2022/10/21/zabbix/zabbix6.0%E6%8A%A5%E8%AD%A6/image-20221025113941717.png"></p>
+<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.work.weixin.qq.com/document/path/91770#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E7%BE%A4%E6%9C%BA%E5%99%A8%E4%BA%BA">https://developer.work.weixin.qq.com/document/path/91770#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E7%BE%A4%E6%9C%BA%E5%99%A8%E4%BA%BA</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.zabbix.com/documentation/6.0/zh/manual/appendix/macros/supported_by_location">https://www.zabbix.com/documentation/6.0/zh/manual/appendix/macros/supported_by_location</a></li>
 </ul>
 
                 
@@ -563,7 +657,7 @@ $ ll /usr/lib/zabbix/alertscripts
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://bestmem.github.io/2022/10/21/zabbix/zabbix6.0%E5%91%8A%E8%AD%A6/">https://bestmem.github.io/2022/10/21/zabbix/zabbix6.0%E5%91%8A%E8%AD%A6/</a>
+                    <a href="https://bestmem.github.io/2022/10/21/zabbix/zabbix6.0%E6%8A%A5%E8%AD%A6/">https://bestmem.github.io/2022/10/21/zabbix/zabbix6.0%E6%8A%A5%E8%AD%A6/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -652,13 +746,13 @@ $ ll /usr/lib/zabbix/alertscripts
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2022/10/21/zabbix/zabbix6.0%E5%91%8A%E8%AD%A6/">
+                <a href="/2022/10/21/zabbix/zabbix6.0%E6%8A%A5%E8%AD%A6/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="zabbix告警">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="zabbix报警">
                         
-                        <span class="card-title">zabbix告警</span>
+                        <span class="card-title">zabbix报警</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -930,7 +1024,7 @@ $ ll /usr/lib/zabbix/alertscripts
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">22.8k</span>
+                        class="white-color">23.8k</span>
             
             
             

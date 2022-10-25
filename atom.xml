@@ -6,7 +6,7 @@
   <link href="https://bestmem.github.io/atom.xml" rel="self"/>
   
   <link href="https://bestmem.github.io/"/>
-  <updated>2022-10-21T09:59:31.450Z</updated>
+  <updated>2022-10-25T07:59:37.366Z</updated>
   <id>https://bestmem.github.io/</id>
   
   <author>
@@ -17,18 +17,18 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>zabbix告警</title>
-    <link href="https://bestmem.github.io/2022/10/21/zabbix/zabbix6.0%E5%91%8A%E8%AD%A6/"/>
-    <id>https://bestmem.github.io/2022/10/21/zabbix/zabbix6.0%E5%91%8A%E8%AD%A6/</id>
+    <title>zabbix报警</title>
+    <link href="https://bestmem.github.io/2022/10/21/zabbix/zabbix6.0%E6%8A%A5%E8%AD%A6/"/>
+    <id>https://bestmem.github.io/2022/10/21/zabbix/zabbix6.0%E6%8A%A5%E8%AD%A6/</id>
     <published>2022-10-21T08:17:07.000Z</published>
-    <updated>2022-10-21T09:59:31.450Z</updated>
+    <updated>2022-10-25T07:59:37.366Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;概要&quot;&gt;&lt;a href=&quot;#概要&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h1 id=&quot;概要&quot;&gt;&lt;a href=&quot;#概要&quot; class=&quot;headerlink&quot; title=&quot;概要&quot;&gt;&lt;/a&gt;概要&lt;/h1&gt;&lt;p&gt;报警简单流程：报警源（产生报警事件）–&amp;gt;报警媒介（报警渠道）–&amp;gt;触发动作（发送告警规则）</summary>
         
       
     
